@@ -12,12 +12,13 @@ HEADERS = {'User-Agent': UA.random}
 
 class WrongLangError(Exception):
     def __init__(self, lang):
-        print(f"Sorry, the program doesn't support {lang}")
-
+        self.message = f"Sorry, the program doesn't support {lang}"
+        super().__init__(self.message)
 
 class WrongWordError(Exception):
     def __init__(self, word):
-        print(f"Sorry, unable to find {word}")
+        self.message = f"Sorry, unable to find {word}"
+        super().__init__(self.message)
 
 
 def adv_print(text, file):
@@ -72,8 +73,8 @@ if __name__ == '__main__':
             get_translation(lang_from, lang_to, word)
     except requests.exceptions.ConnectionError:
         print('Something wrong with your internet connection')
-    except WrongLangError:
-        pass
-    except WrongWordError:
-        pass
+    except WrongLangError as err:
+        print(err)
+    except WrongWordError as err:
+        print(err)
 
